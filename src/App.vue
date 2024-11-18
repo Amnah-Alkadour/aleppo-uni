@@ -1,30 +1,30 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <MyNav />
   <router-view />
+  <MyFooter />
 </template>
-
+<script>
+import MyNav from "@/components/MyNav.vue";
+import MyFooter from "./components/MyFooter.vue";
+export default {
+  components: {
+    MyNav,
+    MyFooter,
+  },
+};
+</script>
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Sakkal+Majalla&display=swap");
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Sakkal Majalla", "serif" !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  font-size: 30px !important;
 }
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+h4,
+h3 {
+  font-size: 26px !important;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="navbar bg-gradient-to-t from-[rgba(36,76,116,1)] to-[rgb(43,146,162)] text-[#eee] text-2xl"
+    class="navbar bg-gradient-to-t from-[#244c74] to-[rgb(43,146,162)] text-[#eee] text-2xl"
   >
     <div class="">
       <div
@@ -45,60 +45,7 @@
           <!-- <router-link to="/system" class="text-gray-300 hover:text-white"
             > المعاهد</router-link
           > -->
-          <div>
-            <li class="nav-item dropdown relative">
-              <!-- زر القائمة -->
-              <a
-                id="navbarDropdown"
-                href="#"
-                class="nav-link dropdown-toggle flex items-center cursor-pointer"
-                @click.prevent="toggleDropdown"
-              >
-                المعاهد
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 ml-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </a>
-
-              <!--قائمة المعاهد -->
-              <div
-                v-if="showDropdown"
-                class="absolute mt-2 w-64 bg-white border border-gray-300 shadow-md rounded-md z-50"
-              >
-                <!-- <div
-                v-for="(category, index) in categories"
-                :key="index"
-                class="mb-2 px-4"
-              >
-                <span class="dropdown-header text-gray-700 font-bold">
-                  {{ category.name }}
-                </span>
-              </div> -->
-                <div class="dropdown-divider border-t mt-2"></div>
-                <div class="px-4 py-2">
-                  <a
-                    v-for="(institute, idx) in institutes"
-                    :key="idx"
-                    :href="institute.link"
-                    class="block dropdown-item py-1 text-gray-600 hover:text-yellow-500"
-                  >
-                    {{ institute.name }}
-                  </a>
-                </div>
-              </div>
-            </li>
-          </div>
+          <InstitutesAbout />
           <!-- <router-link
             to="/e-Portal"
             class="text-gray-300 hover:text-white border-gray-600 rounded-1"
@@ -148,19 +95,12 @@
           <router-link to="/about" class="text-gray-300 hover:text-white"
             >عن الجامعة</router-link
           >
-          <router-link to="/about" class="text-gray-300 hover:text-white"
-            >الكليات والمعاهد
-          </router-link>
-          <router-link to="/system" class="text-gray-300 hover:text-white"
-            >الأنظمة والقرارات</router-link
-          >
-          <router-link to="/courses" class="text-gray-300 hover:text-white"
-            >المقررات</router-link
-          >
+          <CollegeAbout />
+
           <router-link
             to="/e-Portal"
             class="text-gray-300 hover:text-white border-gray-600 rounded-1"
-            >تسجيل دخول</router-link
+            >المعاهد</router-link
           >
           <div class="ml-4 flex justify-between">
             <button class="flex text-white rounded-md">
@@ -181,9 +121,10 @@
 
 <script setup>
 import CollegeAbout from "./CollegeAbout.vue";
+import InstitutesAbout from "./InstitutesAbout.vue";
 import { ref, onMounted } from "vue";
 
-const showDropdown = ref(false);
+//const showDropdown = ref(false);
 const categories = ref([]);
 const institutes = ref([]);
 const data = [
@@ -444,9 +385,9 @@ onMounted(() => {
 });
 
 // التحكم في إظهار/إخفاء القائمة
-function toggleDropdown() {
-  showDropdown.value = !showDropdown.value;
-}
+// function toggleDropdown() {
+//   showDropdown.value = !showDropdown.value;
+// }
 
 const isMenuOpen = ref(false);
 const searchQuery = ref("");
@@ -478,6 +419,7 @@ function toggleMenu() {
 }
 .nav-item {
   list-style-type: none;
+  text-decoration-color: #fff;
 }
 .nave-item a {
   padding: 0rem 1rem;

@@ -3,49 +3,30 @@
     class="text-white hover:bg-[#244c74] focus:text-[rgb(66,121,129)] font-Sakkal Majalla"
   >
     <!-- Navigation bar containing dropdowns -->
-    <div
-      class="flex flex-col md:flex-row relative justify-center items-center md:justify-start md:items-start"
-      ref="dropdownContainer"
-    >
-      <!-- الكليات Dropdown as grid in navbar -->
-      <div class="relative flex flex-col items-center" ref="collegesDropdown">
-        <span class="text-xl cursor-pointer" @click="toggleDropdown">
-          الكليات
-        </span>
+    <!-- الكليات Dropdown as grid in navbar -->
+    <div class="relative flex flex-col items-center" ref="collegesDropdown">
+      <span class="text-xl cursor-pointer" @click="toggleDropdown">
+        المعاهد
+      </span>
 
+      <div
+        v-if="isDropdownOpen && !isSmallScreen"
+        class="absolute greed bg-gradient-to-r from-[rgba(5,93,148,0.9)] to-[rgba(24,55,79,0.9)] text-white p-4 rounded-b-[40px] rounded-tl-[60px] shadow-lg w-full md:w-auto grid lg:grid-cols-3 gap-10 z-10 top-14 mt-1"
+      >
+        <!-- قائمة المعاهد -->
         <div
-          v-if="isDropdownOpen && !isSmallScreen"
-          class="absolute greed bg-gradient-to-r from-[rgba(5,93,148,0.9)] to-[rgba(24,55,79,0.9)] text-white p-4 rounded-b-[40px] rounded-tl-[60px] shadow-lg w-full md:w-auto grid lg:grid-cols-3 gap-10 z-10 top-14 mt-1"
+          class="institute-column p-2 rounded-lg text-[2px] w-full md:w-[250px]"
         >
-          <!-- الكليات الهندسية -->
-          <div class="college-column p-2 rounded-lg text-[2px] w-[250px]">
-            <div class="font-bold text-xl mb-4 text-white">
-              الكليات الهندسية
-            </div>
-            <ul class="pl-0 list-none">
-              <li
-                v-for="college in engineeringColleges"
-                :key="college.id"
-                class="p-2 rounded-md mb-2 transition-colors duration-200 hover:bg-[#22409b]"
-              >
-                {{ college.name }}
-              </li>
-            </ul>
-          </div>
-
-          <!-- الكليات الأدبية -->
-          <div class="college-column p-2 rounded-lg text-[2px] w-[250px]">
-            <div class="font-bold text-xl mb-2 text-white">الكليات الأدبية</div>
-            <ul class="pl-0 list-none">
-              <li
-                v-for="college in literaryColleges"
-                :key="college.id"
-                class="p-2 rounded-md mb-2 transition-colors duration-200 hover:bg-[#22409b]"
-              >
-                {{ college.name }}
-              </li>
-            </ul>
-          </div>
+          <div class="font-bold text-xl mb-4 text-white">المعاهد</div>
+          <ul class="pl-0 list-none">
+            <li
+              v-for="institute in institutes"
+              :key="institute.id"
+              class="p-2 rounded-md mb-2 transition-colors duration-200 hover:bg-[#22409b]"
+            >
+              {{ institute.name }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -255,27 +236,14 @@ export default {
           part_type_name: "قسم",
           part_code: "",
         },
-      ], // البيانات التي أرسلتها
+      ],
     };
   },
   computed: {
-    // الكليات الهندسية
-    engineeringColleges() {
-      return this.colleges.filter((college) =>
-        ["الهندسة", "العلوم البرمجية", "التكنولوجيا"].some((type) =>
-          college.name.includes(type)
-        )
-      );
-    },
-    // الكليات الأدبية
-    literaryColleges() {
+    // استخراج المعاهد فقط
+    institutes() {
       return this.colleges.filter(
-        (college) =>
-          college.part_type_id === 3 &&
-          college.level === 3 &&
-          ["الآداب", "اللغة", "الشريعة", "التربية"].some((type) =>
-            college.name.includes(type)
-          )
+        (item) => item.part_type_name && item.part_type_name.trim() === "معهد"
       );
     },
   },
@@ -295,7 +263,7 @@ export default {
 /* Additional responsiveness for larger screens */
 @media (min-width: 768px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr); /* 4 أعمدة للكليات */
+    grid-template-columns: repeat(4, 1fr); /* شبكة بأربع أعمدة */
   }
   .greed {
     top: 4.5rem;
